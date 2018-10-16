@@ -1,1 +1,1951 @@
-# DRU-Modbus-Openhab2-NodeRed
+[
+    {
+        "id": "56c45493.f45f0c",
+        "type": "modbus-read",
+        "z": "fb344059.73db6",
+        "name": "DRU_Status",
+        "topic": "",
+        "showStatusActivities": true,
+        "showErrors": true,
+        "unitid": "2",
+        "dataType": "HoldingRegister",
+        "adr": "40203",
+        "quantity": "1",
+        "rate": "10",
+        "rateUnit": "s",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "e702863e.44b568",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "x": 110,
+        "y": 60,
+        "wires": [
+            [],
+            [
+                "cb42fc24.e27aa"
+            ]
+        ]
+    },
+    {
+        "id": "8c4ab8c2.8488b8",
+        "type": "modbus-read",
+        "z": "fb344059.73db6",
+        "name": "DRU_rssi",
+        "topic": "",
+        "showStatusActivities": true,
+        "showErrors": true,
+        "unitid": "2",
+        "dataType": "HoldingRegister",
+        "adr": "40205",
+        "quantity": "1",
+        "rate": "10",
+        "rateUnit": "s",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "e702863e.44b568",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "x": 100,
+        "y": 260,
+        "wires": [
+            [],
+            [
+                "c2ac4bdd.d37e98"
+            ]
+        ]
+    },
+    {
+        "id": "91a59f3e.deea7",
+        "type": "modbus-read",
+        "z": "fb344059.73db6",
+        "name": "DRU_RoomTemp",
+        "topic": "",
+        "showStatusActivities": true,
+        "showErrors": true,
+        "unitid": "2",
+        "dataType": "HoldingRegister",
+        "adr": "40207",
+        "quantity": "1",
+        "rate": "10",
+        "rateUnit": "s",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "e702863e.44b568",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "x": 120,
+        "y": 460,
+        "wires": [
+            [],
+            [
+                "c7e1b44f.e3f428"
+            ]
+        ]
+    },
+    {
+        "id": "a7c00c20.04c02",
+        "type": "modbus-write",
+        "z": "fb344059.73db6",
+        "name": "40200",
+        "showStatusActivities": true,
+        "showErrors": true,
+        "unitid": "2",
+        "dataType": "HoldingRegister",
+        "adr": "40200",
+        "quantity": "1",
+        "server": "e702863e.44b568",
+        "x": 830,
+        "y": 1600,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "c43cc5b6.c1a728",
+        "type": "inject",
+        "z": "fb344059.73db6",
+        "name": "Opstarten met alle branders",
+        "topic": "",
+        "payload": "101",
+        "payloadType": "num",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 900,
+        "y": 1760,
+        "wires": [
+            [
+                "a7c00c20.04c02"
+            ]
+        ]
+    },
+    {
+        "id": "bee27537.7d9d58",
+        "type": "inject",
+        "z": "fb344059.73db6",
+        "name": "Brander 2 AAN",
+        "topic": "",
+        "payload": "102",
+        "payloadType": "num",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 860,
+        "y": 1820,
+        "wires": [
+            [
+                "a7c00c20.04c02"
+            ]
+        ]
+    },
+    {
+        "id": "dff53a88.6677c8",
+        "type": "inject",
+        "z": "fb344059.73db6",
+        "name": "Brander 2 UIT",
+        "topic": "",
+        "payload": "4",
+        "payloadType": "num",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 850,
+        "y": 1880,
+        "wires": [
+            [
+                "a7c00c20.04c02"
+            ]
+        ]
+    },
+    {
+        "id": "c6748d6a.a54f3",
+        "type": "function",
+        "z": "fb344059.73db6",
+        "name": "payload divided by 10",
+        "func": "msg.payload = Number(msg.payload);\nmsg.payload = (msg.payload)/10;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 620,
+        "y": 460,
+        "wires": [
+            [
+                "9dcd1810.870518"
+            ]
+        ]
+    },
+    {
+        "id": "c7e1b44f.e3f428",
+        "type": "change",
+        "z": "fb344059.73db6",
+        "name": "",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload.data[0]",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 360,
+        "y": 460,
+        "wires": [
+            [
+                "c6748d6a.a54f3"
+            ]
+        ]
+    },
+    {
+        "id": "9dcd1810.870518",
+        "type": "openhab2-out",
+        "z": "fb344059.73db6",
+        "name": "DruRoomTemp",
+        "controller": "be8b0821.df18b8",
+        "itemname": "DruRoomTemp",
+        "topic": "ItemUpdate",
+        "payload": "",
+        "x": 880,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e220cc80.d0ddc",
+        "type": "openhab2-out",
+        "z": "fb344059.73db6",
+        "name": "DruStatus",
+        "controller": "be8b0821.df18b8",
+        "itemname": "DruStatus",
+        "topic": "ItemUpdate",
+        "payload": "",
+        "x": 860,
+        "y": 60,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cb42fc24.e27aa",
+        "type": "change",
+        "z": "fb344059.73db6",
+        "name": "",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload.data[0]",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 360,
+        "y": 60,
+        "wires": [
+            [
+                "110a8e24.9a8ed2"
+            ]
+        ]
+    },
+    {
+        "id": "110a8e24.9a8ed2",
+        "type": "change",
+        "z": "fb344059.73db6",
+        "name": "Translate modbus to string",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "15360",
+                "fromt": "num",
+                "to": "OFF",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "48128",
+                "fromt": "num",
+                "to": "unknown 48128",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "47116",
+                "fromt": "num",
+                "to": "Aan - 2 branders Actief",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "47108",
+                "fromt": "num",
+                "to": "unknown 47108",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "47628",
+                "fromt": "num",
+                "to": "Aan - EcoWave Actief",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "47620",
+                "fromt": "num",
+                "to": "unknwon 47620 (1 brander aan?)",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "48652",
+                "fromt": "num",
+                "to": "unknown 48652",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "48140",
+                "fromt": "num",
+                "to": "unknown 48140",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 640,
+        "y": 60,
+        "wires": [
+            [
+                "e220cc80.d0ddc"
+            ]
+        ]
+    },
+    {
+        "id": "c2ac4bdd.d37e98",
+        "type": "change",
+        "z": "fb344059.73db6",
+        "name": "",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload.data[0]",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 360,
+        "y": 260,
+        "wires": [
+            [
+                "1cc4f326.bdd80d"
+            ]
+        ]
+    },
+    {
+        "id": "a81cc53d.4ce998",
+        "type": "openhab2-out",
+        "z": "fb344059.73db6",
+        "name": "DruRSSIGateway",
+        "controller": "be8b0821.df18b8",
+        "itemname": "DruRSSIGateway",
+        "topic": "ItemUpdate",
+        "payload": "",
+        "x": 890,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ab4c7b06.a07df8",
+        "type": "modbus-write",
+        "z": "fb344059.73db6",
+        "name": "40420",
+        "showStatusActivities": true,
+        "showErrors": true,
+        "unitid": "2",
+        "dataType": "HoldingRegister",
+        "adr": "40420",
+        "quantity": "1",
+        "server": "e702863e.44b568",
+        "x": 550,
+        "y": 1600,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "e8f90b24.c63dc8",
+        "type": "inject",
+        "z": "fb344059.73db6",
+        "name": "15 Seconden",
+        "topic": "",
+        "payload": "15",
+        "payloadType": "num",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 570,
+        "y": 1660,
+        "wires": [
+            [
+                "ab4c7b06.a07df8"
+            ]
+        ]
+    },
+    {
+        "id": "a0049e2e.410c3",
+        "type": "modbus-write",
+        "z": "fb344059.73db6",
+        "name": "40201",
+        "showStatusActivities": true,
+        "showErrors": true,
+        "unitid": "2",
+        "dataType": "HoldingRegister",
+        "adr": "40201",
+        "quantity": "1",
+        "server": "e702863e.44b568",
+        "x": 170,
+        "y": 1600,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "be57153b.637d48",
+        "type": "inject",
+        "z": "fb344059.73db6",
+        "name": "100%",
+        "topic": "",
+        "payload": "100",
+        "payloadType": "num",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 190,
+        "y": 1660,
+        "wires": [
+            [
+                "a0049e2e.410c3"
+            ]
+        ]
+    },
+    {
+        "id": "fb6a7742.8e6508",
+        "type": "inject",
+        "z": "fb344059.73db6",
+        "name": "",
+        "topic": "",
+        "payload": "1",
+        "payloadType": "num",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 190,
+        "y": 1800,
+        "wires": [
+            [
+                "6624e634.fec378"
+            ]
+        ]
+    },
+    {
+        "id": "6624e634.fec378",
+        "type": "function",
+        "z": "fb344059.73db6",
+        "name": "Startup Values",
+        "func": "msg.payload = { value:[2569,3340,3854,3342,2572,1801,773,514,1027,2054], \n'fc': 16, \n'unitid': 2, \n'address': 40421, \n'quantity': 10 } \nreturn msg",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 360,
+        "y": 1800,
+        "wires": [
+            [
+                "e24f425c.735fb"
+            ]
+        ]
+    },
+    {
+        "id": "e24f425c.735fb",
+        "type": "modbus-flex-write",
+        "z": "fb344059.73db6",
+        "name": "test flex write",
+        "showStatusActivities": true,
+        "showErrors": true,
+        "server": "e702863e.44b568",
+        "x": 540,
+        "y": 1800,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "1cc4f326.bdd80d",
+        "type": "function",
+        "z": "fb344059.73db6",
+        "name": "payload multiplied by -0,5",
+        "func": "msg.payload = Number(msg.payload);\nmsg.payload = (msg.payload)*-0.5;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 630,
+        "y": 260,
+        "wires": [
+            [
+                "a81cc53d.4ce998"
+            ]
+        ]
+    },
+    {
+        "id": "3a567415.734cdc",
+        "type": "comment",
+        "z": "fb344059.73db6",
+        "name": "Vlamhoogte register 40201",
+        "info": "",
+        "x": 230,
+        "y": 1560,
+        "wires": []
+    },
+    {
+        "id": "51086847.b60568",
+        "type": "comment",
+        "z": "fb344059.73db6",
+        "name": "Action register",
+        "info": "",
+        "x": 860,
+        "y": 1560,
+        "wires": []
+    },
+    {
+        "id": "3f569787.30d5d8",
+        "type": "comment",
+        "z": "fb344059.73db6",
+        "name": "Status 40203",
+        "info": "",
+        "x": 110,
+        "y": 20,
+        "wires": []
+    },
+    {
+        "id": "f4fafb96.5aadc8",
+        "type": "comment",
+        "z": "fb344059.73db6",
+        "name": "Roomtemp 40207",
+        "info": "",
+        "x": 130,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "76696731.56b3d8",
+        "type": "comment",
+        "z": "fb344059.73db6",
+        "name": "RSSI Gateway 40205",
+        "info": "",
+        "x": 140,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "2494a4dc.98f60c",
+        "type": "modbus-read",
+        "z": "fb344059.73db6",
+        "name": "DFGT_rssi",
+        "topic": "",
+        "showStatusActivities": true,
+        "logIOActivities": false,
+        "showErrors": true,
+        "unitid": "2",
+        "dataType": "HoldingRegister",
+        "adr": "40206",
+        "quantity": "1",
+        "rate": "10",
+        "rateUnit": "s",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "e702863e.44b568",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "x": 100,
+        "y": 360,
+        "wires": [
+            [],
+            [
+                "6867dfe3.29c35"
+            ]
+        ]
+    },
+    {
+        "id": "6867dfe3.29c35",
+        "type": "change",
+        "z": "fb344059.73db6",
+        "name": "",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload.data[0]",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 360,
+        "y": 360,
+        "wires": [
+            [
+                "20cff2ba.3e2dce"
+            ]
+        ]
+    },
+    {
+        "id": "20cff2ba.3e2dce",
+        "type": "function",
+        "z": "fb344059.73db6",
+        "name": "payload multiplied by -0,5",
+        "func": "msg.payload = Number(msg.payload);\nmsg.payload = (msg.payload)*-0.5;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 630,
+        "y": 360,
+        "wires": [
+            [
+                "6e9fa581.bd3b0c"
+            ]
+        ]
+    },
+    {
+        "id": "7fac272e.06d568",
+        "type": "comment",
+        "z": "fb344059.73db6",
+        "name": "RSSI DFGT 40206",
+        "info": "",
+        "x": 130,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "35eb9c21.bce5d4",
+        "type": "modbus-read",
+        "z": "fb344059.73db6",
+        "name": "DRU_Fault",
+        "topic": "",
+        "showStatusActivities": true,
+        "logIOActivities": false,
+        "showErrors": true,
+        "unitid": "2",
+        "dataType": "HoldingRegister",
+        "adr": "40204",
+        "quantity": "1",
+        "rate": "10",
+        "rateUnit": "s",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "e702863e.44b568",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "x": 100,
+        "y": 160,
+        "wires": [
+            [],
+            [
+                "a8b23db7.55e0f"
+            ]
+        ]
+    },
+    {
+        "id": "a8b23db7.55e0f",
+        "type": "change",
+        "z": "fb344059.73db6",
+        "name": "",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload.data[0]",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 360,
+        "y": 160,
+        "wires": [
+            [
+                "68703977.77f358"
+            ]
+        ]
+    },
+    {
+        "id": "bb36708f.a1916",
+        "type": "comment",
+        "z": "fb344059.73db6",
+        "name": "Fault 40204",
+        "info": "",
+        "x": 110,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "faa7f9be.ccb1e8",
+        "type": "comment",
+        "z": "fb344059.73db6",
+        "name": "Eco Wave interval time",
+        "info": "",
+        "x": 600,
+        "y": 1560,
+        "wires": []
+    },
+    {
+        "id": "6e9fa581.bd3b0c",
+        "type": "openhab2-out",
+        "z": "fb344059.73db6",
+        "name": "DruRSSIDFGT",
+        "controller": "be8b0821.df18b8",
+        "itemname": "DruRSSIDFGT",
+        "topic": "ItemUpdate",
+        "payload": "",
+        "x": 880,
+        "y": 360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1eeb5525.0ebe5b",
+        "type": "openhab2-out",
+        "z": "fb344059.73db6",
+        "name": "DruFault",
+        "controller": "be8b0821.df18b8",
+        "itemname": "DruFault",
+        "topic": "ItemUpdate",
+        "payload": "",
+        "x": 860,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "68703977.77f358",
+        "type": "change",
+        "z": "fb344059.73db6",
+        "name": "Translate modbus to string",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "15360",
+                "fromt": "num",
+                "to": "OFF",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "48128",
+                "fromt": "num",
+                "to": "unknown 48128",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "47116",
+                "fromt": "num",
+                "to": "unknown 47116 (aan 2 branders geen ecowave)",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "47108",
+                "fromt": "num",
+                "to": "unknown 47108",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "47628",
+                "fromt": "num",
+                "to": "unknown 47628 (ecowave?)",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "47620",
+                "fromt": "num",
+                "to": "unknwon 47620 (1 brander aan?)",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "48652",
+                "fromt": "num",
+                "to": "unknown 48652",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "48140",
+                "fromt": "num",
+                "to": "unknown 48140",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 640,
+        "y": 160,
+        "wires": [
+            [
+                "1eeb5525.0ebe5b"
+            ]
+        ]
+    },
+    {
+        "id": "5e457924.7027e8",
+        "type": "inject",
+        "z": "fb344059.73db6",
+        "name": "Waakvlam aan",
+        "topic": "",
+        "payload": "100",
+        "payloadType": "num",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 860,
+        "y": 1720,
+        "wires": [
+            [
+                "a7c00c20.04c02"
+            ]
+        ]
+    },
+    {
+        "id": "149b03cf.62a67c",
+        "type": "inject",
+        "z": "fb344059.73db6",
+        "name": "Ecowave AAN",
+        "topic": "",
+        "payload": "105",
+        "payloadType": "num",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 850,
+        "y": 1980,
+        "wires": [
+            [
+                "a7c00c20.04c02"
+            ]
+        ]
+    },
+    {
+        "id": "def8736b.b3ac2",
+        "type": "inject",
+        "z": "fb344059.73db6",
+        "name": "EcoWave UIT",
+        "topic": "",
+        "payload": "7",
+        "payloadType": "num",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 850,
+        "y": 2020,
+        "wires": [
+            [
+                "a7c00c20.04c02"
+            ]
+        ]
+    },
+    {
+        "id": "f24d6902.3f0408",
+        "type": "inject",
+        "z": "fb344059.73db6",
+        "name": "25%",
+        "topic": "",
+        "payload": "25",
+        "payloadType": "num",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 190,
+        "y": 1700,
+        "wires": [
+            [
+                "a0049e2e.410c3"
+            ]
+        ]
+    },
+    {
+        "id": "97a53992.bfe988",
+        "type": "inject",
+        "z": "fb344059.73db6",
+        "name": "UIT 1",
+        "topic": "",
+        "payload": "1",
+        "payloadType": "num",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 830,
+        "y": 1920,
+        "wires": [
+            [
+                "a7c00c20.04c02"
+            ]
+        ]
+    },
+    {
+        "id": "13b4349f.9fdcdb",
+        "type": "comment",
+        "z": "fb344059.73db6",
+        "name": "Eco Wave COMFORT",
+        "info": "",
+        "x": 220,
+        "y": 1760,
+        "wires": []
+    },
+    {
+        "id": "1f4db27c.1bcafe",
+        "type": "function",
+        "z": "fb344059.73db6",
+        "name": "Startup Values",
+        "func": "msg.payload = { value:[1797,2312,2569,2313,1800,1029,259,257,513,1283], \n'fc': 16, \n'unitid': 2, \n'address': 40421, \n'quantity': 10 } \nreturn msg",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 360,
+        "y": 1900,
+        "wires": [
+            [
+                "e24f425c.735fb"
+            ]
+        ]
+    },
+    {
+        "id": "9d606100.4b5e3",
+        "type": "inject",
+        "z": "fb344059.73db6",
+        "name": "",
+        "topic": "",
+        "payload": "1",
+        "payloadType": "num",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 190,
+        "y": 1900,
+        "wires": [
+            [
+                "1f4db27c.1bcafe"
+            ]
+        ]
+    },
+    {
+        "id": "1cfcc137.ff23df",
+        "type": "comment",
+        "z": "fb344059.73db6",
+        "name": "Eco Wave ECO",
+        "info": "",
+        "x": 200,
+        "y": 1860,
+        "wires": []
+    },
+    {
+        "id": "4ae556c4.2fa6b8",
+        "type": "openhab2-in",
+        "z": "fb344059.73db6",
+        "name": "DruControl",
+        "controller": "be8b0821.df18b8",
+        "itemname": "DruControl",
+        "x": 80,
+        "y": 1040,
+        "wires": [
+            [],
+            [
+                "6acc616e.d3d38"
+            ]
+        ]
+    },
+    {
+        "id": "ae4eab1c.188618",
+        "type": "comment",
+        "z": "fb344059.73db6",
+        "name": "Run predefined program - 100% flame height to ecowave comfort",
+        "info": "",
+        "x": 260,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "6acc616e.d3d38",
+        "type": "switch",
+        "z": "fb344059.73db6",
+        "name": "Item Updated",
+        "property": "payload.type",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "ItemStateEvent",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 280,
+        "y": 1040,
+        "wires": [
+            [
+                "b5906eef.a00df"
+            ]
+        ]
+    },
+    {
+        "id": "b5906eef.a00df",
+        "type": "switch",
+        "z": "fb344059.73db6",
+        "name": "Evaluate DruControl State",
+        "property": "payload.payload.value",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "COMFORT",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "ECO",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "OFF",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 490,
+        "y": 1040,
+        "wires": [
+            [
+                "e8f00057.818ad"
+            ],
+            [
+                "67254818.76bc78"
+            ],
+            [
+                "1fdb4d82.3dcb82"
+            ]
+        ]
+    },
+    {
+        "id": "e8f00057.818ad",
+        "type": "openhab2-get",
+        "z": "fb344059.73db6",
+        "name": "DruStatus",
+        "controller": "be8b0821.df18b8",
+        "itemname": "DruStatus",
+        "x": 700,
+        "y": 1020,
+        "wires": [
+            [
+                "70610178.a4a3f"
+            ]
+        ]
+    },
+    {
+        "id": "70610178.a4a3f",
+        "type": "switch",
+        "z": "fb344059.73db6",
+        "name": "Evaluate DruStatus",
+        "property": "payload.state",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "OFF",
+                "vt": "str"
+            },
+            {
+                "t": "neq",
+                "v": "OFF",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 890,
+        "y": 960,
+        "wires": [
+            [
+                "c29007ab.5946e8"
+            ],
+            [
+                "3d7a315.a18d9ce"
+            ]
+        ]
+    },
+    {
+        "id": "67254818.76bc78",
+        "type": "openhab2-get",
+        "z": "fb344059.73db6",
+        "name": "DruStatus",
+        "controller": "be8b0821.df18b8",
+        "itemname": "DruStatus",
+        "x": 700,
+        "y": 1060,
+        "wires": [
+            [
+                "72994cd3.86d794"
+            ]
+        ]
+    },
+    {
+        "id": "1fdb4d82.3dcb82",
+        "type": "openhab2-get",
+        "z": "fb344059.73db6",
+        "name": "DruStatus",
+        "controller": "be8b0821.df18b8",
+        "itemname": "DruStatus",
+        "x": 700,
+        "y": 1100,
+        "wires": [
+            [
+                "df8aecd0.4fea2"
+            ]
+        ]
+    },
+    {
+        "id": "72994cd3.86d794",
+        "type": "switch",
+        "z": "fb344059.73db6",
+        "name": "Evaluate DruStatus",
+        "property": "payload.state",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "OFF",
+                "vt": "str"
+            },
+            {
+                "t": "neq",
+                "v": "OFF",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 890,
+        "y": 1060,
+        "wires": [
+            [
+                "c2832fba.23356"
+            ],
+            [
+                "34dba3f0.417bfc"
+            ]
+        ]
+    },
+    {
+        "id": "df8aecd0.4fea2",
+        "type": "switch",
+        "z": "fb344059.73db6",
+        "name": "Evaluate DruStatus",
+        "property": "payload.state",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "OFF",
+                "vt": "str"
+            },
+            {
+                "t": "neq",
+                "v": "OFF",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 890,
+        "y": 1200,
+        "wires": [
+            [],
+            [
+                "dc0cb5df.99d898"
+            ]
+        ]
+    },
+    {
+        "id": "3a68ce68.f45922",
+        "type": "modbus-write",
+        "z": "fb344059.73db6",
+        "name": "40200",
+        "showStatusActivities": true,
+        "showErrors": true,
+        "unitid": "2",
+        "dataType": "HoldingRegister",
+        "adr": "40200",
+        "quantity": "1",
+        "server": "e702863e.44b568",
+        "x": 2370,
+        "y": 1020,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "b95154e3.2d58c8",
+        "type": "comment",
+        "z": "fb344059.73db6",
+        "name": "Action register",
+        "info": "",
+        "x": 2400,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "dc0cb5df.99d898",
+        "type": "change",
+        "z": "fb344059.73db6",
+        "name": "Turn DRU OFF",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "1",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1120,
+        "y": 1200,
+        "wires": [
+            [
+                "3a68ce68.f45922"
+            ]
+        ]
+    },
+    {
+        "id": "c29007ab.5946e8",
+        "type": "change",
+        "z": "fb344059.73db6",
+        "name": "Turn DRU ON (all burners)",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "101",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1150,
+        "y": 880,
+        "wires": [
+            [
+                "3a68ce68.f45922",
+                "8d91d272.6104e"
+            ]
+        ]
+    },
+    {
+        "id": "8d91d272.6104e",
+        "type": "delay",
+        "z": "fb344059.73db6",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 1200,
+        "y": 920,
+        "wires": [
+            [
+                "e625b221.6434a"
+            ]
+        ]
+    },
+    {
+        "id": "91ddcea.8a5f83",
+        "type": "modbus-write",
+        "z": "fb344059.73db6",
+        "name": "40201",
+        "showStatusActivities": true,
+        "showErrors": true,
+        "unitid": "2",
+        "dataType": "HoldingRegister",
+        "adr": "40201",
+        "quantity": "1",
+        "server": "e702863e.44b568",
+        "x": 2370,
+        "y": 1100,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "8b9dd282.5087f",
+        "type": "comment",
+        "z": "fb344059.73db6",
+        "name": "Flame Height register",
+        "info": "",
+        "x": 2420,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "e625b221.6434a",
+        "type": "change",
+        "z": "fb344059.73db6",
+        "name": "Set Flame Height to 100%",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "100",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1440,
+        "y": 880,
+        "wires": [
+            [
+                "91ddcea.8a5f83",
+                "ecd31844.37c6c8"
+            ]
+        ]
+    },
+    {
+        "id": "ecd31844.37c6c8",
+        "type": "delay",
+        "z": "fb344059.73db6",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "10",
+        "timeoutUnits": "minutes",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 1490,
+        "y": 940,
+        "wires": [
+            [
+                "25f6db3.e35c724"
+            ]
+        ]
+    },
+    {
+        "id": "25f6db3.e35c724",
+        "type": "change",
+        "z": "fb344059.73db6",
+        "name": "Activate EcoWave",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "105",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1710,
+        "y": 880,
+        "wires": [
+            [
+                "3a68ce68.f45922",
+                "a2181a8e.a00798"
+            ]
+        ]
+    },
+    {
+        "id": "2b41ff9c.64f6a",
+        "type": "modbus-write",
+        "z": "fb344059.73db6",
+        "name": "40420",
+        "showStatusActivities": true,
+        "showErrors": true,
+        "unitid": "2",
+        "dataType": "HoldingRegister",
+        "adr": "40420",
+        "quantity": "1",
+        "server": "e702863e.44b568",
+        "x": 2370,
+        "y": 1180,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "9457950b.a8f558",
+        "type": "comment",
+        "z": "fb344059.73db6",
+        "name": "Eco Wave interval time",
+        "info": "",
+        "x": 2420,
+        "y": 1140,
+        "wires": []
+    },
+    {
+        "id": "a2181a8e.a00798",
+        "type": "delay",
+        "z": "fb344059.73db6",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 1740,
+        "y": 920,
+        "wires": [
+            [
+                "35a51899.b71d98"
+            ]
+        ]
+    },
+    {
+        "id": "35a51899.b71d98",
+        "type": "change",
+        "z": "fb344059.73db6",
+        "name": "Set EcoWave interval",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "15",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1960,
+        "y": 880,
+        "wires": [
+            [
+                "2b41ff9c.64f6a",
+                "510816a1.68acc8"
+            ]
+        ]
+    },
+    {
+        "id": "510816a1.68acc8",
+        "type": "delay",
+        "z": "fb344059.73db6",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 2000,
+        "y": 920,
+        "wires": [
+            [
+                "8025560b.0b6f18"
+            ]
+        ]
+    },
+    {
+        "id": "8025560b.0b6f18",
+        "type": "function",
+        "z": "fb344059.73db6",
+        "name": "Startup Values",
+        "func": "msg.payload = { value:[2569,3340,3854,3342,2572,1801,773,514,1027,2054], \n'fc': 16, \n'unitid': 2, \n'address': 40421, \n'quantity': 10 } \nreturn msg",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 2400,
+        "y": 1260,
+        "wires": [
+            [
+                "15a52847.dba7a8"
+            ]
+        ]
+    },
+    {
+        "id": "15a52847.dba7a8",
+        "type": "modbus-flex-write",
+        "z": "fb344059.73db6",
+        "name": "test flex write",
+        "showStatusActivities": true,
+        "showErrors": true,
+        "server": "e702863e.44b568",
+        "x": 2660,
+        "y": 1300,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "de626e80.a0931",
+        "type": "comment",
+        "z": "fb344059.73db6",
+        "name": "Eco Wave Scene - Comfort",
+        "info": "",
+        "x": 2440,
+        "y": 1220,
+        "wires": []
+    },
+    {
+        "id": "ed754560.91a788",
+        "type": "comment",
+        "z": "fb344059.73db6",
+        "name": "Eco Wave Scene - Eco",
+        "info": "",
+        "x": 2420,
+        "y": 1300,
+        "wires": []
+    },
+    {
+        "id": "c2832fba.23356",
+        "type": "change",
+        "z": "fb344059.73db6",
+        "name": "Turn DRU ON (all burners)",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "101",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1150,
+        "y": 1060,
+        "wires": [
+            [
+                "91edf4f0.306e58",
+                "3a68ce68.f45922"
+            ]
+        ]
+    },
+    {
+        "id": "91edf4f0.306e58",
+        "type": "delay",
+        "z": "fb344059.73db6",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 1200,
+        "y": 1100,
+        "wires": [
+            [
+                "e803ab93.97bc38"
+            ]
+        ]
+    },
+    {
+        "id": "e803ab93.97bc38",
+        "type": "change",
+        "z": "fb344059.73db6",
+        "name": "Set Flame Height to 100%",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "100",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1440,
+        "y": 1060,
+        "wires": [
+            [
+                "edb9112c.bfad9",
+                "91ddcea.8a5f83"
+            ]
+        ]
+    },
+    {
+        "id": "edb9112c.bfad9",
+        "type": "delay",
+        "z": "fb344059.73db6",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "10",
+        "timeoutUnits": "minutes",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 1490,
+        "y": 1120,
+        "wires": [
+            [
+                "358a3bda.a68b64"
+            ]
+        ]
+    },
+    {
+        "id": "358a3bda.a68b64",
+        "type": "change",
+        "z": "fb344059.73db6",
+        "name": "Activate EcoWave",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "105",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1710,
+        "y": 1060,
+        "wires": [
+            [
+                "ecde58e.f49a8a8",
+                "3a68ce68.f45922"
+            ]
+        ]
+    },
+    {
+        "id": "ecde58e.f49a8a8",
+        "type": "delay",
+        "z": "fb344059.73db6",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 1740,
+        "y": 1100,
+        "wires": [
+            [
+                "1471f583.96cd8a"
+            ]
+        ]
+    },
+    {
+        "id": "1471f583.96cd8a",
+        "type": "change",
+        "z": "fb344059.73db6",
+        "name": "Set EcoWave interval",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "15",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1960,
+        "y": 1060,
+        "wires": [
+            [
+                "ce896a8c.d83158",
+                "2b41ff9c.64f6a"
+            ]
+        ]
+    },
+    {
+        "id": "ce896a8c.d83158",
+        "type": "delay",
+        "z": "fb344059.73db6",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 2000,
+        "y": 1100,
+        "wires": [
+            [
+                "2cd267a2.755c98"
+            ]
+        ]
+    },
+    {
+        "id": "3d7a315.a18d9ce",
+        "type": "change",
+        "z": "fb344059.73db6",
+        "name": "reset delay",
+        "rules": [
+            {
+                "t": "set",
+                "p": "reset",
+                "pt": "msg",
+                "to": "clear",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1110,
+        "y": 960,
+        "wires": [
+            [
+                "25f6db3.e35c724",
+                "edb9112c.bfad9",
+                "ecd31844.37c6c8"
+            ]
+        ]
+    },
+    {
+        "id": "34dba3f0.417bfc",
+        "type": "change",
+        "z": "fb344059.73db6",
+        "name": "reset delay",
+        "rules": [
+            {
+                "t": "set",
+                "p": "reset",
+                "pt": "msg",
+                "to": "clear",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1110,
+        "y": 1140,
+        "wires": [
+            [
+                "358a3bda.a68b64",
+                "ecd31844.37c6c8",
+                "edb9112c.bfad9"
+            ]
+        ]
+    },
+    {
+        "id": "2cd267a2.755c98",
+        "type": "function",
+        "z": "fb344059.73db6",
+        "name": "Startup Values",
+        "func": "msg.payload = { value:[1797,2312,2569,2313,1800,1029,259,257,513,1283], \n'fc': 16, \n'unitid': 2, \n'address': 40421, \n'quantity': 10 } \nreturn msg",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 2400,
+        "y": 1340,
+        "wires": [
+            [
+                "15a52847.dba7a8"
+            ]
+        ]
+    },
+    {
+        "id": "e702863e.44b568",
+        "type": "modbus-client",
+        "z": "",
+        "name": "DRU",
+        "clienttype": "tcp",
+        "bufferCommands": true,
+        "stateLogEnabled": false,
+        "tcpHost": "172.16.11.51",
+        "tcpPort": "502",
+        "tcpType": "DEFAULT",
+        "serialPort": "/dev/ttyUSB",
+        "serialType": "RTU-BUFFERD",
+        "serialBaudrate": "9600",
+        "serialDatabits": "8",
+        "serialStopbits": "1",
+        "serialParity": "none",
+        "serialConnectionDelay": "100",
+        "unit_id": 1,
+        "commandDelay": 1,
+        "clientTimeout": 1000,
+        "reconnectTimeout": 2000
+    },
+    {
+        "id": "be8b0821.df18b8",
+        "type": "openhab2-controller",
+        "z": "",
+        "name": "Openhab2 - Prod",
+        "protocol": "http",
+        "host": "localhost",
+        "port": "8080",
+        "path": "",
+        "username": "",
+        "password": ""
+    }
+]
